@@ -2,13 +2,11 @@
 from __future__ import (nested_scopes, generators, division, absolute_import,
                         with_statement, print_function, unicode_literals)
 import fnmatch
+import threading
 
 
 from grass.script.core import get_commands
 from grass.pygrass.modules.interface import Module
-
-_CMDS = list(get_commands()[0])
-_CMDS.sort()
 
 
 class MetaModule(object):
@@ -46,13 +44,24 @@ class MetaModule(object):
        >>> v.import_
        Module('v.import')
     """
+
+    _commands = None
+    _lock = threading.Lock()
+
     def __init__(self, prefix, cls=None):
         self.prefix = prefix
         self.cls = cls if cls else Module
 
+    def __update_commands(self):
+        klass = type(self)
+        with klass._lock:
+            klass._commands = sorted(get_commands()[0])
+
     def __dir__(self):
+        if self._commands is None:
+            self.__update_commands()
         return [mod[(len(self.prefix) + 1):].replace('.', '_')
-                for mod in fnmatch.filter(_CMDS, "%s.*" % self.prefix)]
+                for mod in fnmatch.filter(self._commands, "%s.*" % self.prefix)]
 
     def __getattr__(self, name):
         return self.cls('%s.%s' % (self.prefix,

@@ -1,6 +1,16 @@
 import gettext
 import os
 
+from os.path import dirname
+
+# _ROOT_DIR points to the root directory of the GRASS installation/distribution
+# Yeap, calling 4 times dirname is not really elegant, but we want to go from:
+#     dist.x86_64-pc-linux-gnu/etc/python/grass/__init__.py
+# to:
+#     dist.x86_64-pc-linux-gnu/
+#
+_ROOT_DIR = dirname(dirname(dirname(dirname(os.path.abspath(__file__)))))
+
 # Setup i18N
 #
 # Calling `gettext.install()` injects `_()` in the builtins namespace and
@@ -16,7 +26,7 @@ import os
 # - https://pymotw.com/2//gettext/index.html#application-vs-module-localization
 # - https://www.wefearchange.org/2012/06/the-right-way-to-internationalize-your.html
 #
-_LOCALE_DIR = os.path.join(os.getenv("GISBASE"), 'locale')
+_LOCALE_DIR = os.path.join(_ROOT_DIR, 'locale')
 gettext.install('grasslibs', _LOCALE_DIR)
 gettext.install('grassmods', _LOCALE_DIR)
 gettext.install('grasswxpy', _LOCALE_DIR)
