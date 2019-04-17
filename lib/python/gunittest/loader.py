@@ -68,7 +68,7 @@ def discover_modules(start_dir, skip_dirs, testsuite_dir,
         if testsuite_dir in dirs:
             dirs.remove(testsuite_dir)  # do not recurse to testsuite
             full = os.path.join(root, testsuite_dir)
-            
+
             all_files = os.listdir(full)
             if file_pattern:
                 files = fnmatch.filter(all_files, file_pattern)
@@ -150,6 +150,7 @@ class GrassTestLoader(unittest.TestLoader):
     universal_tests_value = 'universal'
 
     def __init__(self, grass_location):
+        super(GrassTestLoader, self).__init__()
         self.grass_location = grass_location
 
     # TODO: what is the purpose of top_level_dir, can it be useful?
