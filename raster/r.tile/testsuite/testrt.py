@@ -1,7 +1,7 @@
 """
 Name:       r.tile test
 Purpose:    Tests r.tile and its flags/options.
-	
+
 Author:     Sunveer Singh, Google Code-in 2018
 Copyright:  (C) 2018 by Sunveer Singh and the GRASS Development Team
 Licence:    This program is free software under the GNU General Public
@@ -9,7 +9,6 @@ Licence:    This program is free software under the GNU General Public
 	            for details.
 """
 from grass.gunittest.case import TestCase
-from grass.gunittest.main import test
 
 class Testrr(TestCase):
     input='elevation'
@@ -19,7 +18,7 @@ class Testrr(TestCase):
     def setUpClass(cls):
         cls.use_temp_region()
         cls.runModule('g.region', raster=cls.input)
-	
+
     @classmethod
     def tearDownClass(cls):
         cls.del_temp_region()
@@ -43,7 +42,7 @@ class Testrr(TestCase):
         tile="tile-000-000"
         self.assertModule('r.tile', input=self.input, output=self.output, width=1500/2, height=1350/2, overlap=250)
         self.assertRasterMinMax(map=tile, refmin=74.75374, refmax=156.3299,
-	                        msg="tile-000-000 in degrees must be between 74.75374 and 156.3299") 
+	                        msg="tile-000-000 in degrees must be between 74.75374 and 156.3299")
 
     def test_minmax(self):
         """Testing output map tile-000-001"""
@@ -52,7 +51,7 @@ class Testrr(TestCase):
         self.assertRasterMinMax(map=tile1, refmin=55.57879, refmax=144.2673,
 	                        msg="tile-000-001 in degrees must be between 55.57879 and 144.2673")
 
-if __name__ == '__main__':
-    from grass.gunittest.main import test
-    test()
 
+if __name__ == '__main__':
+    import grass.gunittest.main
+    grass.gunittest.main.test()

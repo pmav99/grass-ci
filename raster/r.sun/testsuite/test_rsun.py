@@ -1,6 +1,5 @@
 # -*- coding: utf-8 -*-
 from grass.gunittest.case import TestCase
-from grass.gunittest.main import test
 from grass.gunittest.gmodules import SimpleModule
 
 
@@ -113,5 +112,7 @@ class TestRSunMode1(TestCase):
         values = 'min=0.0100772567093372\nmax=40.5435371398926\nmean=13.2855086254291'
         self.assertRasterFitsUnivar(raster=self.incidout, reference=values, precision=1e-8)
 
+
 if __name__ == '__main__':
-    test()
+    import grass.gunittest.main
+    grass.gunittest.main.test()

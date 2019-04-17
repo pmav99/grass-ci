@@ -11,7 +11,6 @@ Licence:    This program is free software under the GNU General Public
 """
 
 from grass.gunittest.case import TestCase
-from grass.gunittest.main import test
 
 
 class Testrmode(TestCase):
@@ -38,4 +37,5 @@ class Testrmode(TestCase):
 
 
 if __name__ == '__main__':
-    test()
+    import grass.gunittest.main
+    grass.gunittest.main.test()

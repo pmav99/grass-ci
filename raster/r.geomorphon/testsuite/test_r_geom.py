@@ -11,7 +11,6 @@ Licence:    This program is free software under the GNU General Public
 """
 
 from grass.gunittest.case import TestCase
-from grass.gunittest.main import test
 from grass.script.core import read_command
 
 synth_out = \
@@ -55,7 +54,7 @@ class TestClipling(TestCase):
         cls.runModule('g.remove', flags='f', type='raster',
                       name=(cls.insint, cls.outele, cls.outsint))
         cls.del_temp_region()
-    
+
     def test_ele(self):
         self.runModule('r.geomorphon', elevation=self.inele, forms=self.outele,
                       search=10)
@@ -67,6 +66,8 @@ class TestClipling(TestCase):
                        forms=self.outsint, search=10)
         category = read_command('r.category', map=self.outsint)
         self.assertEqual(first=synth_out, second=category)
-    
+
+
 if __name__ == '__main__':
-    test()
+    import grass.gunittest.main
+    grass.gunittest.main.test()

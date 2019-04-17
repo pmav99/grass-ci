@@ -19,7 +19,6 @@
 # https://trac.osgeo.org/grass/ticket/3067
 
 from grass.gunittest.case import TestCase
-from grass.gunittest.main import test
 
 
 INPUT = """\
@@ -92,4 +91,5 @@ class TestRowAboveAndBelowBug(TestCase):
 
 
 if __name__ == '__main__':
-    test()
+    import grass.gunittest.main
+    grass.gunittest.main.test()

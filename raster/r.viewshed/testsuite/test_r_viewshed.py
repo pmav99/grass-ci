@@ -1,6 +1,11 @@
+import os.path
+
 from grass.gunittest.case import TestCase
-from grass.gunittest.main import test
 from grass.gunittest.gmodules import call_module
+
+
+PARENT_DIR = os.path.abspath(os.path.dirname(__file__))
+DATA_DIR = os.path.join(PARENT_DIR, "data")
 
 
 class TestViewshed(TestCase):
@@ -86,7 +91,7 @@ class TestViewshedAgainstReference(TestCase):
         cls.use_temp_region()
         cls.runModule('g.region', n=216990, s=215520, e=635950, w=633730, res=10)
         cls.elevation = 'ref_elevation'
-        cls.runModule('r.in.ascii', input='data/elevation.ascii',
+        cls.runModule('r.in.ascii', input=os.path.join(DATA_DIR, 'elevation.ascii'),
                        output=cls.elevation)
 
     @classmethod
@@ -104,7 +109,7 @@ class TestViewshedAgainstReference(TestCase):
         obs_elev = '1.72'
 
         self.runModule('r.in.ascii',
-                       input='data/lake_viewshed.ascii', output=ref_viewshed)
+                       input=os.path.join(DATA_DIR, 'lake_viewshed.ascii'), output=ref_viewshed)
         self.to_remove.append(ref_viewshed)
 
         self.assertModule('r.viewshed', input=self.elevation,
@@ -121,4 +126,5 @@ class TestViewshedAgainstReference(TestCase):
 
 
 if __name__ == '__main__':
-    test()
+    import grass.gunittest.main
+    grass.gunittest.main.test()

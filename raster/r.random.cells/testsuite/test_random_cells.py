@@ -14,7 +14,6 @@ COPYRIGHT: (C) 2015 Vaclav Petras, and by the GRASS Development Team
 
 
 from grass.gunittest.case import TestCase
-from grass.gunittest.main import test
 
 
 
@@ -74,4 +73,5 @@ class TestCounts(TestCase):
 
 
 if __name__ == '__main__':
-    test()
+    import grass.gunittest.main
+    grass.gunittest.main.test()

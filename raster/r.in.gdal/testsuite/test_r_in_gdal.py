@@ -2,7 +2,13 @@
 
 @author Soeren Gebbert
 """
+import os.path
+
 from grass.gunittest.case import TestCase
+
+PARENT_DIR = os.path.abspath(os.path.dirname(__file__))
+DATA_DIR = os.path.join(PARENT_DIR, "data")
+
 
 class TestGdalImport(TestCase):
 
@@ -25,7 +31,7 @@ class TestGdalImport(TestCase):
     def test_1(self):
 
         self.assertModule("r.in.gdal", "Import GTiff Format",
-                          input="data/elevation.tif",
+                          input=os.path.join(DATA_DIR, "elevation.tif"),
                           output="test_gdal_import_map")
 
         self.runModule("g.region", raster="test_gdal_import_map")
@@ -50,7 +56,7 @@ class TestGdalImport(TestCase):
     def test_2(self):
 
         self.assertModule("r.in.gdal", "Import GTiff Format",
-                          input="data/elevation.tiff",
+                          input=os.path.join(DATA_DIR, "elevation.tiff"),
                           output="test_gdal_import_map")
 
         self.runModule("g.region", raster="test_gdal_import_map")
@@ -75,7 +81,7 @@ class TestGdalImport(TestCase):
     def test_3(self):
 
         self.assertModule("r.in.gdal", "Import AAIGrid Format",
-                          input="data/elevation.asc",
+                          input=os.path.join(DATA_DIR, "elevation.asc"),
                           output="test_gdal_import_map")
 
         self.runModule("g.region", raster="test_gdal_import_map")
@@ -100,7 +106,7 @@ class TestGdalImport(TestCase):
     def test_4(self):
 
         self.assertModule("r.in.gdal", "Import netCDF Format",
-                          input="data/elevation.nc",
+                          input=os.path.join(DATA_DIR, "elevation.nc"),
                           output="test_gdal_import_map")
 
         self.runModule("g.region", raster="test_gdal_import_map")
@@ -125,7 +131,7 @@ class TestGdalImport(TestCase):
     def test_netCDF_3d_1(self):
 
         self.assertModule("r.in.gdal", "Import netCDF Format",
-                          input="data/elevation3d.nc",
+                          input=os.path.join(DATA_DIR, "elevation3d.nc"),
                           num_digits="3",
                           flags="o",
                           output="test_gdal_import_map")
@@ -157,7 +163,7 @@ class TestGdalImport(TestCase):
     def test_netCDF_3d_2(self):
 
         self.assertModule("r.in.gdal", "Import netCDF Format",
-                          input="data/elevation3d.nc",
+                          input=os.path.join(DATA_DIR, "elevation3d.nc"),
                           num_digits=0,
                           offset=100,
                           flags="o",
@@ -190,7 +196,7 @@ class TestGdalImport(TestCase):
     def test_netCDF_3d_3(self):
 
         self.assertModule("r.in.gdal", "Import netCDF Format",
-                          input="data/elevation3d.nc",
+                          input=os.path.join(DATA_DIR, "elevation3d.nc"),
                           num_digits=5,
                           offset=100,
                           flags="o",
@@ -223,7 +229,7 @@ class TestGdalImport(TestCase):
     def test_netCDF_3d_4(self):
 
         self.assertModule("r.in.gdal", "Import netCDF Format",
-                          input="data/elevation3d.nc",
+                          input=os.path.join(DATA_DIR, "elevation3d.nc"),
                           num_digits="3",
                           flags="o",
                           band=2,
@@ -249,7 +255,7 @@ class TestGdalImport(TestCase):
         """Test the output map names file option"""
 
         self.assertModule("r.in.gdal", "Import netCDF Format",
-                          input="data/elevation3d.nc",
+                          input=os.path.join(DATA_DIR, "elevation3d.nc"),
                           num_digits=10,
                           offset=100,
                           flags="o",
@@ -273,19 +279,18 @@ class TestGdalImportFails(TestCase):
     def test_error_handling_1(self):
         # Wrong number of digits
         self.assertModuleFail("r.in.gdal",
-                              input="data/elevation.nc",
+                              input=os.path.join(DATA_DIR, "elevation.nc"),
                               num_digits="-1",
                               output="test_gdal_import_map")
 
     def test_error_handling_2(self):
         # No location specified
         self.assertModuleFail("r.in.gdal",
-                              input="data/elevation.nc",
+                              input=os.path.join(DATA_DIR, "elevation.nc"),
                               flags="c",
                               output="test_gdal_import_map")
 
+
 if __name__ == '__main__':
-    from grass.gunittest.main import test
-    test()
-
-
+    import grass.gunittest.main
+    grass.gunittest.main.test()

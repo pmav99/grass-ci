@@ -1,16 +1,22 @@
 """
 Name:       r.reclass test
 Purpose:    Tests r.reclass and its flags/options.
-	
+
 Author:     Sunveer Singh, Google Code-in 2017
 Copyright:  (C) 2017 by Sunveer Singh and the GRASS Development Team
 Licence:    This program is free software under the GNU General Public
 	            License (>=v2). Read the file COPYING that comes with GRASS
 	            for details.
 """
+
+import os.path
+
 from grass.gunittest.case import TestCase
-from grass.gunittest.main import test
 from grass.gunittest.gmodules import SimpleModule
+
+PARENT_DIR = os.path.abspath(os.path.dirname(__file__))
+DATA_DIR = os.path.join(PARENT_DIR, "data")
+
 
 rules1 = """
 1 2 3   = 1    good quality
@@ -33,12 +39,12 @@ rules3="""
 class Testrr(TestCase):
     output='reclass'
     input='elevation_shade'
- 
+
     @classmethod
     def setUpClass(cls):
         cls.use_temp_region()
         cls.runModule('g.region', raster=cls.input)
-	
+
     @classmethod
     def tearDownClass(cls):
         cls.del_temp_region()
@@ -76,10 +82,12 @@ class Testrr(TestCase):
     def test_rules4(self):
         """Testing rules with external file"""
         reclass = SimpleModule('r.reclass', input=self.input, output=self.output,
-                              rules='data/rules.txt')
+                               rules=os.path.join(DATA_DIR, 'rules.txt'))
         self.assertModule(reclass)
         info = 'min=1\nmax=3\ndatatype=CELL'
         self.assertRasterFitsInfo(raster='reclass', reference=info)
 
+
 if __name__ == '__main__':
-    test()
+    import grass.gunittest.main
+    grass.gunittest.main.test()

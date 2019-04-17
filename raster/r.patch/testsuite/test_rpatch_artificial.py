@@ -13,7 +13,6 @@ COPYRIGHT: (C) 2015 Vaclav Petras, and by the GRASS Development Team
 """
 
 from grass.gunittest.case import TestCase
-from grass.gunittest.main import test
 
 cell_1 = """\
 north: 20
@@ -220,4 +219,5 @@ class TestSmallDataOverlap(TestCase):
 
 
 if __name__ == '__main__':
-    test()
+    import grass.gunittest.main
+    grass.gunittest.main.test()

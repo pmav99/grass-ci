@@ -1,24 +1,28 @@
 """
 Name:       r.in.ascii test
 Purpose:    Tests r.in.ascii and its flags/options.
-	
+
 Author:     Sunveer Singh, Google Code-in 2017
 Copyright:  (C) 2017 by Sunveer Singh and the GRASS Development Team
 Licence:    This program is free software under the GNU General Public
 	            License (>=v2). Read the file COPYING that comes with GRASS
 	            for details.
 """
+import os.path
+
 from grass.gunittest.case import TestCase
-from grass.gunittest.main import test
 from grass.script.core import read_command
+
+PARENT_DIR = os.path.abspath(os.path.dirname(__file__))
+DATA_DIR = os.path.join(PARENT_DIR, "data")
 
 INPUT_NOQUOTES="""north:                   4299000.00
 south:                   4247000.00
 east:                     528000.00
 west:                     500000.00
-rows:                         10   
-cols:                         15   
-null:                      -9999   
+rows:                         10
+cols:                         15
+null:                      -9999
 
 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15
 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15
@@ -35,9 +39,9 @@ INPUT_TSV="""north:                   4299000.00
 south:                   4247000.00
 east:                     528000.00
 west:                     500000.00
-rows:                         10   
-cols:                         15   
-null:                      -9999   
+rows:                         10
+cols:                         15
+null:                      -9999
 
 1\ 2\ 3\ 4\ 5\ 6\ 7\ 8\ 9\ 10\ 11\ 12\ 13\ 14\ 15
 1\ 2\ 3\ 4\ 5\ 6\ 7\ 8\ 9\ 10\ 11\ 12\ 13\ 14\ 15
@@ -54,9 +58,9 @@ INPUT_UNCOMMON="""north:                   4299000.00
 south:                   4247000.00
 east:                     528000.00
 west:                     500000.00
-rows:                         10   
-cols:                         15   
-null:                      -9999   
+rows:                         10
+cols:                         15
+null:                      -9999
 
 1@ 2@ 3@ 4@ 5@ 6@ 7@ 8@ 9@ 10@ 11@ 12@ 13@ 14@ 15
 1@ 2@ 3@ 4@ 5@ 6@ 7@ 8@ 9@ 10@ 11@ 12@ 13@ 14@ 15
@@ -95,8 +99,8 @@ class SimpleCsvTestCase(TestCase):
 
     def test_text_delimeter(self):
         """Testing with external file"""
-        self.assertModule('r.in.ascii', input='data/input_ascii.txt', output=self.ascii_test,
-                          type='CELL')
+        self.assertModule('r.in.ascii', input=os.path.join(DATA_DIR, 'input_ascii.txt'),
+                          output=self.ascii_test, type='CELL')
         self.assertRasterMinMax(map=self.ascii_test, refmin=1, refmax=5,
 	                        msg="ascii_test in degrees must be between 1 and 5")
 
@@ -114,5 +118,8 @@ class SimpleCsvTestCase(TestCase):
         self.assertRasterMinMax(map=self.ascii_test, refmin=1, refmax=15,
 	                        msg="ascii_test in degrees must be between 1 and 15")
 
+
 if __name__ == '__main__':
-    test()
+    import grass.gunittest.main
+    grass.gunittest.main.test()
+

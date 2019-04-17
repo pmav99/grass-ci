@@ -13,7 +13,6 @@ COPYRIGHT: (C) 2015 Anna Petrasova
 """
 
 from grass.gunittest.case import TestCase
-from grass.gunittest.main import test
 from grass.gunittest.gmodules import SimpleModule
 
 
@@ -129,4 +128,5 @@ class TestHorizon(TestCase):
 
 
 if __name__ == '__main__':
-    test()
+    import grass.gunittest.main
+    grass.gunittest.main.test()

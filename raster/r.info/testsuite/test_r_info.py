@@ -1,7 +1,7 @@
 """
 Name:       r.info test
 Purpose:    Tests r.info and its flags/options.
-	
+
 Author:     Sunveer Singh, Google Code-in 2017
 Copyright:  (C) 2017 by Sunveer Singh and the GRASS Development Team
 Licence:    This program is free software under the GNU General Public
@@ -11,12 +11,12 @@ Licence:    This program is free software under the GNU General Public
 from grass.gunittest.case import TestCase
 from grass.gunittest.gmodules import SimpleModule
 class TestReport(TestCase):
-    
+
     @classmethod
     def setUpClass(cls):
         """Use temporary region settings"""
         cls.use_temp_region()
-        
+
     @classmethod
     def tearDownClass(cls):
         """!Remove the temporary region"""
@@ -51,8 +51,8 @@ class TestReport(TestCase):
 
     def test_flagh(self):
         """Testing flag h with map zipcodes"""
-        self.assertModule('r.info', map='lakes', flags='h') 
+        self.assertModule('r.info', map='lakes', flags='h')
 
 if __name__ == '__main__':
-    from grass.gunittest.main import test
-    test()    
+    import grass.gunittest.main
+    grass.gunittest.main.test()

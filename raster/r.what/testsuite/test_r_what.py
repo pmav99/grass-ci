@@ -512,5 +512,5 @@ class TestRasterWhat(TestCase):
 
 
 if __name__ == '__main__':
-    from grass.gunittest.main import test
-    test()
+    import grass.gunittest.main
+    grass.gunittest.main.test()

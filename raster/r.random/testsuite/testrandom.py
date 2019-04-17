@@ -9,7 +9,6 @@ Licence:    This program is free software under the GNU General Public
                 for details.
 """
 from grass.gunittest.case import TestCase
-from grass.gunittest.main import test
 from grass.gunittest.gmodules import SimpleModule
 
 class Testrr(TestCase):
@@ -22,12 +21,12 @@ class Testrr(TestCase):
     @classmethod
     def setUpClass(cls):
         cls.use_temp_region()
-        cls.runModule('g.region', raster=cls.input) 
+        cls.runModule('g.region', raster=cls.input)
 
     @classmethod
     def tearDownClass(cls):
         cls.del_temp_region()
-    
+
     def tearDown(self):
         """Remove the vector map after each test method"""
 
@@ -61,19 +60,18 @@ class Testrr(TestCase):
         self.assertModule('r.random', input=self.input, cover=self.cover, npoints=100, vector=self.vector, flags='d')
         self.assertModule('v.info', map=self.vector, flags='t')
         topology = dict(points=100, lines=0, areas=0, map3d=1)
-        self.assertVectorFitsTopoInfo(self.vector, topology)  
+        self.assertVectorFitsTopoInfo(self.vector, topology)
 
     def test_flag_b(self):
         """Testing flag b"""
         self.assertModule('r.random', input=self.input, cover=self.cover,
                           npoints=36011, vector=self.vector, flags='b',
                           overwrite=True)
-        self.assertModule('v.info', map=self.vector, flags='t') 
+        self.assertModule('v.info', map=self.vector, flags='t')
         topology = dict(points=36011, lines=0, areas=0)
-        self.assertVectorFitsTopoInfo(self.vector, topology) 
-        
+        self.assertVectorFitsTopoInfo(self.vector, topology)
 
 
 if __name__ == '__main__':
-    from grass.gunittest.main import test
-    test()
+    import grass.gunittest.main
+    grass.gunittest.main.test()

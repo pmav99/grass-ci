@@ -11,7 +11,6 @@ Licence:   This program is free software under the GNU General Public
 """
 
 from grass.gunittest.case import TestCase
-from grass.gunittest.main import test
 
 
 class TestWatershed(TestCase):
@@ -150,5 +149,7 @@ class TestWatershed(TestCase):
         self.assertRasterMinMax(self.basin, 0, 1000000,
                                 msg='A basin value is less than 0 or greater than 1000000')
 
+
 if __name__ == '__main__':
-    test()
+    import grass.gunittest.main
+    grass.gunittest.main.test()

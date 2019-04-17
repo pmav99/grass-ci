@@ -19,7 +19,6 @@
 # https://trac.osgeo.org/grass/ticket/3296
 
 from grass.gunittest.case import TestCase
-from grass.gunittest.main import test
 
 
 OUTPUT = """\
@@ -90,7 +89,7 @@ class TestNmedianBug(TestCase):
         self.to_remove.append(self.output)
         self.assertRastersNoDifference(actual=self.output,
             reference=self.output_ref, precision=0)
-    
+
     def test_dcell(self):
         expression = "{o}=nmedian(double(({i}[0,-1] - {i})^2), double(({i}[0,1] - {i})^2))".format(o=self.output, i=self.input)
         self.assertModule('r.mapcalc', expression=expression, overwrite=True)
@@ -101,4 +100,5 @@ class TestNmedianBug(TestCase):
 
 
 if __name__ == '__main__':
-    test()
+    import grass.gunittest.main
+    grass.gunittest.main.test()

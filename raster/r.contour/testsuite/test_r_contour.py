@@ -42,8 +42,6 @@ class TestRasterWhat(TestCase):
         if os.path.isfile('testReportCutFlagT'):
             os.remove('testReportCutFlagT')
 
-
-
     def test_raster_contour(self):
         """Testing r.contour runs successfully with input steps,levels, minlevel, maxlevel"""
         self.assertModule('r.contour', input=self.input, output=self.output, step=self.step, levels=self.levels, minlevel=self.minlevel, maxlevel=self.maxlevel)
@@ -78,6 +76,7 @@ class TestRasterWhat(TestCase):
         self.assertVectorExists(name=self.output+"_cut_flag_t", msg=self.output+" was not created.")
         # No need to check the attribute values of contours because attribute table was not created
 
+
 if __name__ == '__main__':
-    from grass.gunittest.main import test
-    test()
+    import grass.gunittest.main
+    grass.gunittest.main.test()

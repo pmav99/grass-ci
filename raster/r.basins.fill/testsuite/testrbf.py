@@ -1,7 +1,7 @@
 """
 Name:       r.basins.fill
 Purpose:    Tests r.basins.fill and its flags/options.
-	
+
 Author:     Sunveer Singh
 Copyright:  (C) 2017 by Sunveer Singh and the GRASS Development Team
 Licence:    This program is free software under the GNU General Public
@@ -25,12 +25,12 @@ class TestRasterbasin(TestCase):
         cls.runModule('r.geomorphon', elevation=cls.celevation, forms=cls.tgeology, overwrite=True)
         cls.runModule('r.mapcalc', seed=seed, expression='rand_cell = rand(1, 200)', overwrite=True)
         cls.runModule('r.thin', input=cls.input, output=cls.output)
-        
+
 
     @classmethod
     def tearDownClass(cls):
         cls.del_temp_region()
-        
+
     def tearDown(cls):
         cls.runModule('g.remove', flags='f', type='raster', name=cls.output)
 
@@ -59,5 +59,5 @@ class TestRasterbasin(TestCase):
 	                        msg="rand_cell in degrees must be between 1 and 199")
 
 if __name__ == '__main__':
-    from grass.gunittest.main import test
-    test()
+    import grass.gunittest.main
+    grass.gunittest.main.test()

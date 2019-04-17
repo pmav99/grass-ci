@@ -1,5 +1,4 @@
 from grass.gunittest.case import TestCase
-from grass.gunittest.main import test
 
 
 # TODO: add more expressions
@@ -62,4 +61,5 @@ class TestBasicOperations(TestCase):
 
 
 if __name__ == '__main__':
-    test()
+    import grass.gunittest.main
+    grass.gunittest.main.test()

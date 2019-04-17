@@ -1,6 +1,10 @@
+import os.path
+
 from grass.gunittest.case import TestCase
-from grass.gunittest.main import test
 from grass.gunittest.gmodules import call_module
+
+PARENT_DIR = os.path.abspath(os.path.dirname(__file__))
+DATA_DIR = os.path.join(PARENT_DIR, "data")
 
 SMALL_MAP = """\
 north:   15
@@ -64,7 +68,7 @@ class TestSlopeAspectAgainstReference(TestCase):
         cls.use_temp_region()
         call_module('g.region', n=20, s=10, e=25, w=15, res=1)
         cls.elevation = 'fractal_surf'
-        cls.runModule('r.in.ascii', input='data/fractal_surf.ascii',
+        cls.runModule('r.in.ascii', input=os.path.join(DATA_DIR, 'fractal_surf.ascii'),
                        output=cls.elevation)
 
     @classmethod
@@ -78,7 +82,7 @@ class TestSlopeAspectAgainstReference(TestCase):
 
         # TODO: using gdal instead of ascii because of cannot seek error
         self.runModule('r.in.gdal', flags='o',
-                       input='data/gdal_slope.grd', output=ref_slope)
+                       input=os.path.join(DATA_DIR, 'gdal_slope.grd'), output=ref_slope)
         self.assertModule('r.slope.aspect', elevation=self.elevation,
                           slope=slope)
         # check we have expected values
@@ -93,7 +97,7 @@ class TestSlopeAspectAgainstReference(TestCase):
         aspect = 'fractal_aspect'
         # TODO: using gdal instead of ascii because of cannot seek error
         self.runModule('r.in.gdal', flags='o',
-                       input='data/gdal_aspect.grd', output=ref_aspect)
+                       input=os.path.join(DATA_DIR, 'gdal_aspect.grd'), output=ref_aspect)
         self.assertModule('r.slope.aspect', elevation=self.elevation,
                           aspect=aspect)
         # check we have expected values
@@ -162,4 +166,5 @@ class TestExtremes(TestCase):
 
 
 if __name__ == '__main__':
-    test()
+    import grass.gunittest.main
+    grass.gunittest.main.test()

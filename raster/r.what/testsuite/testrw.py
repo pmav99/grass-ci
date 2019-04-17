@@ -1,7 +1,7 @@
 """
 Name:       r.what test
 Purpose:    Tests r.what and its flags/options.
-	
+
 Author:     Sunveer Singh, Google Code-in 2018
 Copyright:  (C) 2018 by Sunveer Singh and the GRASS Development Team
 Licence:    This program is free software under the GNU General Public
@@ -9,7 +9,6 @@ Licence:    This program is free software under the GNU General Public
 	            for details.
 """
 from grass.gunittest.case import TestCase
-from grass.gunittest.main import test
 from grass.gunittest.gmodules import SimpleModule
 
 class Testrr(TestCase):
@@ -90,5 +89,5 @@ class Testrr(TestCase):
 
 
 if __name__ == '__main__':
-    from grass.gunittest.main import test
-    test()
+    import grass.gunittest.main
+    grass.gunittest.main.test()

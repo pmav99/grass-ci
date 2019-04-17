@@ -1,7 +1,7 @@
 """
 Name:       r.contour test
 Purpose:    Tests r.contour and its flags/options.
-    
+
 Author:     Sunveer Singh, Google Code-in 2018
 Copyright:  (C) 2018 by Sunveer Singh and the GRASS Development Team
 Licence:    This program is free software under the GNU General Public
@@ -9,7 +9,6 @@ Licence:    This program is free software under the GNU General Public
                 for details.
 """
 from grass.gunittest.case import TestCase
-from grass.gunittest.main import test
 from grass.gunittest.gmodules import SimpleModule
 
 out_where = """cat|level
@@ -74,7 +73,7 @@ class Testrr(TestCase):
     def setUpClass(cls):
         cls.use_temp_region()
         cls.runModule('g.region', raster=cls.input)
-    
+
     @classmethod
     def tearDownClass(cls):
         cls.del_temp_region()
@@ -106,7 +105,7 @@ class Testrr(TestCase):
         v_db_select.run()
         self.assertLooksLike(reference=out_where, actual=v_db_select.outputs.stdout.encode('utf8'))
 
-if __name__ == '__main__':
-    from grass.gunittest.main import test
-    test()
 
+if __name__ == '__main__':
+    import grass.gunittest.main
+    grass.gunittest.main.test()

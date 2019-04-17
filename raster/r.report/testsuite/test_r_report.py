@@ -21,7 +21,7 @@ class TestRasterreport(TestCase):
     def setUpClass(cls):
         """Use temporary region settings"""
         cls.use_temp_region()
-        cls.runModule('g.region', raster='elevation') 
+        cls.runModule('g.region', raster='elevation')
 
 
     @classmethod
@@ -70,5 +70,5 @@ class TestRasterreport(TestCase):
 
 
 if __name__ == '__main__':
-    from grass.gunittest.main import test
-    test()
+    import grass.gunittest.main
+    grass.gunittest.main.test()

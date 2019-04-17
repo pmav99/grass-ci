@@ -9,7 +9,6 @@ Licence:    This program is free software under the GNU General Public
             for details.
 """
 from grass.gunittest.case import TestCase
-from grass.gunittest.main import test
 
 
 class Testrr(TestCase):
@@ -56,5 +55,5 @@ class Testrr(TestCase):
 
 
 if __name__ == '__main__':
-    from grass.gunittest.main import test
-    test()
+    import grass.gunittest.main
+    grass.gunittest.main.test()

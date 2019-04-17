@@ -1,7 +1,7 @@
 """
 Name:       r.texture test
 Purpose:    Tests r.texture and its flags/options.
-	
+
 Author:     Sunveer Singh, Google Code-in 2017
 Copyright:  (C) 2017 by Sunveer Singh and the GRASS Development Team
 Licence:    This program is free software under the GNU General Public
@@ -11,21 +11,21 @@ Licence:    This program is free software under the GNU General Public
 from grass.gunittest.case import TestCase
 class TestRasterreport(TestCase):
     input = "lsat7_2002_80"
-   
+
     @classmethod
     def setUpClass(cls):
         cls.use_temp_region()
         cls.runModule("g.region", raster=cls.input)
-	
+
     @classmethod
-    def tearDownClass(cls): 
+    def tearDownClass(cls):
         cls.del_temp_region()
         cls.runModule('g.remove', flags='f', type='raster', name="asm_ASM")
         cls.runModule('g.remove', flags='f', type='raster', name='corr_Corr')
         cls.runModule('g.remove', flags='f', type='raster', name='sa_SA')
         cls.runModule('g.remove', flags='f', type='raster', name='var_Var')
         cls.runModule('g.remove', flags='f', type='raster', name='idm_IDM')
-        
+
     def test_asm(self):
         """Testing method asm"""
         asm_ASM='asm_ASM'
@@ -69,7 +69,8 @@ class TestRasterreport(TestCase):
         self.assertModule('r.texture', input=self.input, output='idm', method='idm')
         self.assertRasterMinMax(map=idm_IDM, refmin=0, refmax=9843.07,
 	                        msg="idm_IDM_IDM in degrees must be between 0.74 and 9843.07")
-      
+
+
 if __name__ == '__main__':
-    from grass.gunittest.main import test
-    test()
+    import grass.gunittest.main
+    grass.gunittest.main.test()

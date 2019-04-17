@@ -1,6 +1,5 @@
 # -*- coding: utf-8 -*-
 from grass.gunittest.case import TestCase
-from grass.gunittest.main import test
 from grass.gunittest.gmodules import SimpleModule
 from grass.script.core import read_command
 
@@ -28,7 +27,7 @@ rules3 = """
 0:1:0:255
 """
 
-# landuse has 7 classes (in nc_spm_08 it is landclass96, not landuse96_28m) 
+# landuse has 7 classes (in nc_spm_08 it is landclass96, not landuse96_28m)
 rules4 = """
 *:3:1
 4:5:2
@@ -94,4 +93,5 @@ class TestNCMaps(TestCase):
         self.assertRasterFitsInfo(raster='recoded', reference=info)
 
 if __name__ == '__main__':
-    test()
+    import grass.gunittest.main
+    grass.gunittest.main.test()

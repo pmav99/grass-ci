@@ -1,5 +1,4 @@
 from grass.gunittest.case import TestCase
-from grass.gunittest.main import test
 from grass.gunittest.gmodules import SimpleModule
 import grass.script.core as gcore
 
@@ -188,4 +187,5 @@ class TestProfileNCSPM(TestCase):
 
 
 if __name__ == '__main__':
-    test()
+    import grass.gunittest.main
+    grass.gunittest.main.test()
