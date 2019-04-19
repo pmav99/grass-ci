@@ -31,7 +31,7 @@ class TestRFillStats(TestCase):
     def tearDownClass(cls):
         cls.del_temp_region()
         cls.runModule('g.remove', flags='f', type='raster',
-                      name=[cls.ascii, cls.wmean, cls.mean, cls.median, cls.mode])
+                      name=[cls.ascii, cls.stats, cls.wmean, cls.mean, cls.median, cls.mode])
 
     def test_stats(self):
         """Test if results match verified rasters"""
