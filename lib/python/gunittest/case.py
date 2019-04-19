@@ -147,6 +147,19 @@ class TestCase(unittest.TestCase):
         # but we have zero chance of infuencing another test class
         # since we use class-specific name for temporary region
 
+    @classmethod
+    def remove_maps(cls, rasters=None, vectors=None):
+        """
+        Removes the specified maps.
+
+        You should use this in tearDown() in order to clean up the maps that were created
+        by the tests.
+        """
+        if rasters:
+            cls.runModule("g.remove", type="raster", name=rasters, flags="f")
+        if vectors:
+            cls.runModule("g.remove", type="vector", name=rasters, flags="f")
+
     def assertMultiLineEqual(self, first, second, msg=None):
         r"""Test that the multiline string first is equal to the string second.
 
