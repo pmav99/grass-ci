@@ -36,6 +36,12 @@ class Validation7x7Grid(TestCase):
         self.runModule("r.mapcalc", expression="s=0.0001")
         self.runModule("r.mapcalc", expression="null=0.0")
 
+    def tearDown(self):
+        self.remove_maps([
+            "phead", "status", "well", "hydcond", "recharge", "top_conf", "bottom", "s",
+            "null", "gwresult_conf", "water_budget",
+        ])
+
     def test_transient(self):
         #First compute the groundwater flow after 500 seconds to have initial conditions
         self.assertModule("r.gwflow", flags="f", solver="cholesky", top="top_conf", bottom="bottom", phead="phead",\

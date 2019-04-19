@@ -41,10 +41,16 @@ class ValidationExcavation(TestCase):
         self.runModule("r.mapcalc", expression="poros=0.1")
         self.runModule("r.mapcalc", expression="null=0.0")
 
+    def tearDown(self):
+        self.remove_maps([
+            "phead", "status", "hydcond", "recharge", "top", "bottom", "poros", "null",
+            "gwresult", "water_budget",
+        ])
+
     def test_steady_state(self):
-        #compute a steady state groundwater flow
-        self.assertModule("r.gwflow", flags="f", solver="cholesky", top="top", bottom="bottom", phead="phead", \
-            status="status", hc_x="hydcond", hc_y="hydcond", s="poros", \
+        # compute a steady state groundwater flow
+        self.assertModule("r.gwflow", flags="f", solver="cholesky", top="top", bottom="bottom", phead="phead",
+            status="status", hc_x="hydcond", hc_y="hydcond", s="poros",
             recharge="recharge", output="gwresult", dtime=864000000000, type="unconfined", budget="water_budget")
 
         # Output of r.univar -g
