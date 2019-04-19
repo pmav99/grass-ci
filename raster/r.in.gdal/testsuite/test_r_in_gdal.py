@@ -25,7 +25,7 @@ class TestGdalImport(TestCase):
         cls.del_temp_region()
 
     def tearDown(self):
-        self.runModule("g.remove", type="raster", flags="f",
+        self.runModule("g.remove", type="all", flags="f",
                        pattern="test_gdal_import_map*")
 
 
