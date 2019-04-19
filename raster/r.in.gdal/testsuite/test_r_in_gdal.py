@@ -3,6 +3,7 @@
 @author Soeren Gebbert
 """
 import os.path
+import tempfile
 
 from grass.gunittest.case import TestCase
 
@@ -254,22 +255,25 @@ class TestGdalImport(TestCase):
     def test_netCDF_3d_5(self):
         """Test the output map names file option"""
 
+        map_names_file = tempfile.mktemp()
+
         self.assertModule("r.in.gdal", "Import netCDF Format",
                           input=os.path.join(DATA_DIR, "elevation3d.nc"),
                           num_digits=10,
                           offset=100,
                           flags="o",
-                          map_names_file="map_names_file.txt",
+                          map_names_file=map_names_file,
                           output="test_gdal_import_map")
 
-        map_list="""test_gdal_import_map.0000000101
-test_gdal_import_map.0000000102
-test_gdal_import_map.0000000103
-test_gdal_import_map.0000000104
-test_gdal_import_map.0000000105
-"""
+        map_list = "\n".join((
+            "test_gdal_import_map.0000000101",
+            "test_gdal_import_map.0000000102",
+            "test_gdal_import_map.0000000103",
+            "test_gdal_import_map.0000000104",
+            "test_gdal_import_map.0000000105",
+        ))
 
-        text_from_file = open("map_names_file.txt", "r").read()
+        text_from_file = open(map_names_file, "r").read().strip()
 
         self.assertLooksLike(map_list, text_from_file)
 
