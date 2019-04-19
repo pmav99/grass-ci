@@ -65,7 +65,7 @@ class TestRowAboveAndBelowBug(TestCase):
 
     def tearDown(self):
         self.del_temp_region()
-        if 0 and self.to_remove:
+        if self.to_remove:
             self.runModule('g.remove', flags='f', type='raster',
                            name=','.join(self.to_remove), verbose=True)
 
