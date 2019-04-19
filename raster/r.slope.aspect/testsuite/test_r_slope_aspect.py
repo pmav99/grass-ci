@@ -29,7 +29,7 @@ class TestSlopeAspect(TestCase):
         self.assertRasterMinMax(map=aspect, refmin=0, refmax=360,
                                 msg="Aspect in degrees must be between 0 and 360")
 
-    def test_limits_precent(self):
+    def test_limits_percent(self):
         """Assumes NC elevation and allows slope up to 100% (45deg)"""
         slope = 'limits_percent_slope'
         aspect = 'limits_percent_aspect'
