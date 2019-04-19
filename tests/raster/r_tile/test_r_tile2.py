@@ -10,6 +10,7 @@ Licence:    This program is free software under the GNU General Public
 """
 from grass.gunittest.case import TestCase
 
+
 class Testrr(TestCase):
     input='elevation'
     output='tile'
@@ -21,8 +22,10 @@ class Testrr(TestCase):
 
     @classmethod
     def tearDownClass(cls):
+        cls.remove_maps(rasters=[
+            "tile-000-000", "tile-000-001", "tile-001-000", "tile-001-001"
+        ])
         cls.del_temp_region()
-
 
     def test_basic(self):
         """Running a basic test"""
